@@ -1,5 +1,22 @@
 library(shiny)
 
+# generate the color coded box plot
+drawPlot <- function(df) {
+        ggplot(df, aes(x = Parameter, y = AQI, fill = HealthConcern)) + 
+                xlab("") + 
+                ylab("AQI") +
+                ggtitle("Predicted Pollutant Values") +
+                geom_bar(stat = "identity") + 
+                scale_fill_manual(values = c("Good" = "green", 
+                                             "Moderate" = "yellow",
+                                             "Unhealthy for Sensitive Groups" = "orange",
+                                             "Unhealthy" = "red",
+                                             "Very Unhealthy" = "purple",
+                                             "Hazardous" = "maroon",
+                                             "Unknown" = "blue")) +
+                coord_flip()
+}
+
 shinyUI(fluidPage(
 
         # Application title
@@ -17,12 +34,16 @@ shinyUI(fluidPage(
                         dateInput("target_date", "Target Date:", min = Sys.Date()),
                         uiOutput("choose_state"),
                         uiOutput("choose_city"),
-                        actionButton("goButton", "Predict AQI")
+                        actionButton("goButton", "Predict AQI"),
+                        hr(),
+                        tableOutput('legend'),
+                        tags$head(tags$style("#legend table {background-color: #F0FAFF; }", media="screen", type="text/css"))
                 ),
                 
                 mainPanel(
                         plotOutput("aqiplot"),
-                        tableOutput("aqidata")
+                        tableOutput("aqidata"),
+                        tags$head(tags$style("#aqidata table { margin: auto; }", media="screen", type="text/css"))
                 )
         )
 ))
