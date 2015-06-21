@@ -21,7 +21,7 @@ for(pattern in file_patterns) {
                 # rename the columns to something more human readable
                 names(data) <- c('Date', 'State', 'City', 'Parameter', 'AQI')
                 
-                # add the data to the table (append if necesssary)
+                # add the data to the observations table (append if necesssary)
                 dbWriteTable(fabaqi.db, 'observations', data, append = TRUE)
         }
 }
