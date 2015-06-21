@@ -10,8 +10,8 @@ shinyUI(fluidPage(
           Pick the date, state, and city for which you would like to predict values in the panel on the 
           left, and click the Predict AQI button. FabAQI will then provide a summary of the predicted AQI values,
           including a health warning for those pollutants which exceed the thresholds defined by the EPA."),
-        strong("Note: Data may not be available for all pollutants in all locations. Unknown values will have an AQI value of -1."),
-        
+        p("Note: Data may not be available for all pollutants in all locations. Unknown values will have an AQI value of -1."),
+        strong("Data source: http://aqsdr1.epa.gov/aqsweb/aqstmp/airdata/download_files.html#Daily"),
         sidebarLayout(
                 sidebarPanel(
                         dateInput("target_date", "Target Date:", min = Sys.Date()),
